@@ -1,32 +1,32 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: ['babel-polyfill', path.resolve(__dirname, './app/index.js')],
+    mode: 'production',
+    entry: {
+        app: ['babel-polyfill', './app/index.tsx', 'webpack-hot-middleware/client'],
+        vendor: ['react', 'react-dom']
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
-        filename: 'index_bundle.js',
+        filename: 'js/[name].bundle.js'
+    },
+    devtool: 'source-map',
+    resolve: {
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: ['babel-loader'],
-            }
+                test: /\.(ts|tsx)$/,
+                loader: 'ts-loader'
+            },
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
     },
-    resolve: {
-        extensions: ['*', '.js', '.jsx']
-    },
-    plugins: [new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, './app/index.html'),
-        filename: 'index.html',
-    })],
-    devServer: {
-        contentBase: './dist',
-    },
-    devtool: 'source-map',
+    plugins: [
+        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'app', 'index.html') }),
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };

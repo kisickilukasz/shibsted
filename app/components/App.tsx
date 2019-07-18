@@ -1,0 +1,48 @@
+import  * as React from 'react';
+import axios from 'axios';
+
+import { Image } from "./Image";
+import { SearchSection} from "./SearchSection";
+
+export function App() {
+    const [query, setQuery] = React.useState('');
+    const [gifsUrl, setGifsUrl] = React.useState(`http://localhost:8000/gifs`);
+    const [imagesUrl, setImagesUrl] = React.useState(`http://localhost:8000/images`);
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const gifsResult = await axios(gifsUrl);
+            const imagesResult = await axios(imagesUrl);
+
+            setData([...gifsResult.data, ...imagesResult.data]);
+        };
+
+        fetchData();
+    }, [gifsUrl, imagesUrl]);
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setGifsUrl(`http://localhost:8000/gifs?searchQuery=${query}`);
+        setImagesUrl(`http://localhost:8000/images?searchQuery=${query}`);
+    };
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value);
+
+    return (
+        <>
+            <SearchSection
+                query={query}
+                onChange={onChange}
+                onSubmit={onSubmit}
+            />
+            {data.map(item => (
+                <Image
+                    key={item.id}
+                    src={item.url}
+                    alt={item.alt}
+                />
+            ))}
+        </>
+    );
+}
