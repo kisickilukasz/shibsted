@@ -12,4 +12,9 @@ export const SearchInput = styled(Input)`
       outline: none;
       border: 1px solid deepskyblue;
     }
+    
+    @media (max-width: 768px) {
+      width: 100%;
+      max-width: 300px;
+    }
 `;

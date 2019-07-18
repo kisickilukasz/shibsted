@@ -10,16 +10,19 @@ export function App() {
     const [gifsUrl, setGifsUrl] = React.useState(`http://localhost:8000/gifs`);
     const [imagesUrl, setImagesUrl] = React.useState(`http://localhost:8000/images`);
     const [data, setData] = React.useState([]);
+    const [isFetching, setIsFetching] = React.useState(false);
 
     React.useEffect(() => {
         const fetchData = async () => {
             const gifsResult = await axios(gifsUrl);
             const imagesResult = await axios(imagesUrl);
 
+            setIsFetching(false);
             setData([...gifsResult.data, ...imagesResult.data]);
         };
 
         fetchData();
+        setIsFetching(true);
     }, [gifsUrl, imagesUrl]);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +41,9 @@ export function App() {
                 onSubmit={onSubmit}
             />
             <ContentWrapper>
-            {data.map(item => (
+            {isFetching
+                ? <div>Loading...</div>
+                : data.map(item => (
                 <ImageWrapper
                     className=""
                     key={item.id}

@@ -27,5 +27,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'app', 'index.html') }),
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: { test: /[\\/]node_modules[\\/]/, name: "common", chunks: "all" }
+            }
+        }
+    }
 };
