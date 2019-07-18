@@ -1,8 +1,9 @@
 import  * as React from 'react';
 import axios from 'axios';
 
-import { Image } from "./Image";
-import { SearchSection} from "./SearchSection";
+import {SearchSection} from "./SearchSection";
+import {ContentWrapper} from "./styled/ContentWrapper";
+import {ImageWrapper} from "./styled/ImageWrapper";
 
 export function App() {
     const [query, setQuery] = React.useState('');
@@ -36,13 +37,16 @@ export function App() {
                 onChange={onChange}
                 onSubmit={onSubmit}
             />
+            <ContentWrapper>
             {data.map(item => (
-                <Image
+                <ImageWrapper
+                    className=""
                     key={item.id}
                     src={item.url}
                     alt={item.alt}
                 />
             ))}
+            </ContentWrapper>
         </>
     );
 }

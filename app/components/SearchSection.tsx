@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Input } from "./Input";
-import { Button } from "./Button";
+import {SearchInput} from "./styled/SearchInput";
+import {SubmitButton} from "./styled/SubmitButton";
+import {SearchSectionWrapper} from "./styled/SearchSectionWrapper";
 
 interface ISearchSectionProps {
     query: string;
@@ -13,14 +14,20 @@ export const SearchSection: React.FC<ISearchSectionProps> = ({
     onSubmit,
     onChange,
 }: ISearchSectionProps) => (
-    <form onSubmit={onSubmit}>
-        <Input
-            type="text"
-            value={query}
-            onChange={onChange}
-        />
-        <Button>
-            Search
-        </Button>
-    </form>
+    <SearchSectionWrapper>
+        <form onSubmit={onSubmit}>
+            <SearchInput
+                className=""
+                type="text"
+                value={query}
+                placeholder="Search for gifs and images"
+                onChange={onChange}
+            />
+            <SubmitButton
+                className=""
+            >
+                Search
+            </SubmitButton>
+        </form>
+    </SearchSectionWrapper>
 );

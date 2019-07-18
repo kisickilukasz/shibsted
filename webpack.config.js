@@ -6,7 +6,6 @@ module.exports = {
     mode: 'production',
     entry: {
         app: ['babel-polyfill', './app/index.tsx', 'webpack-hot-middleware/client'],
-        vendor: ['react', 'react-dom']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -20,9 +19,9 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                loader: 'ts-loader'
+                loader: 'ts-loader',
+                exclude: /node_modules/,
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
     },
     plugins: [
