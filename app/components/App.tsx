@@ -44,12 +44,12 @@ export function App() {
             {isFetching
                 ? <div>Loading...</div>
                 : data.map(item => (
-                <ImageWrapper
-                    className=""
-                    key={item.id}
-                    src={item.url}
-                    alt={item.alt}
-                />
+                    <ImageWrapper
+                        className=""
+                        key={item.id}
+                        src={item.url}
+                        alt={item.alt}
+                    />
             ))}
             </ContentWrapper>
         </>

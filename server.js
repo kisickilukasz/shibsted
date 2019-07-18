@@ -12,11 +12,6 @@ app.listen(port, () => console.log(`We are live on port ${port}`));
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
 let compiler = webpack(webpackConfig);
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true, publicPath: webpackConfig.output.publicPath, stats:    { colors: true }
