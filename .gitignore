@@ -1,4 +1,4 @@
 node_modules/
 .idea/
-app/constants/apiKeys.js
+server/constants/apiKeys.js
 dist/
